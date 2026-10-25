@@ -31,3 +31,6 @@ internal delegate bool BoolRetFn();
 
 [UnmanagedFunctionPointer(CallingConvention.Winapi)]
 internal delegate void GetLoaderConfigFn(ref LoaderConfig config);
+
+[UnmanagedFunctionPointer(CallingConvention.Winapi, CharSet = CharSet.Unicode)]
+internal delegate nint MapIl2CppFunctionFn(string name, int nameLength);

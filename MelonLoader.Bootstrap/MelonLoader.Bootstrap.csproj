@@ -82,6 +82,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AsmResolver.DotNet" Version="6.0.1" />
+        <PackageReference Include="Iced" Version="1.21.0" />
         <PackageReference Include="PublishAotCrossXWin" Version="1.2.0" PrivateAssets="all" />
         <PackageReference Include="Microsoft.NETCore.DotNetAppHost" Version="$(AppHostVersion)" PrivateAssets="All" />
         <PackageReference Include="Pastel" Version="$(PastelVersion)" />
@@ -117,6 +119,6 @@
     </Target>
 
     <Target Condition="'$(RuntimeIdentifier.StartsWith(`win-`))' == 'true'" Name="RenameBinary" AfterTargets="Build">
-        <Move SourceFiles="$(PublishDir)$(TargetName).dll" DestinationFiles="$(MLOutDir)/version.dll" Condition="Exists('$(PublishDir)$(TargetName).dll')" />
+        <Move SourceFiles="$(PublishDir)$(TargetName).dll" DestinationFiles="$(MLOutDir)/winhttp.dll" Condition="Exists('$(PublishDir)$(TargetName).dll')" />
     </Target>
 </Project>

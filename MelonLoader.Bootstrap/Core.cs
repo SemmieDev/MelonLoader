@@ -5,6 +5,7 @@ using MelonLoader.Bootstrap.RuntimeHandlers.Mono;
 using MelonLoader.Bootstrap.Utils;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using MelonLoader.Bootstrap.Deobfuscation;
 using MelonLoader.Bootstrap.Logging;
 using Tomlet;
 
@@ -28,5 +29,7 @@ public static class Core
             ConsoleHandler.NullHandles();
 
         ModuleSymbolRedirect.Attach();
+
+        Il2CppFunctionMapper.Load();
     }
 }

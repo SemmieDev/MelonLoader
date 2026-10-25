@@ -1,5 +1,6 @@
 using MelonLoader.Bootstrap.Utils;
 using System.Runtime.InteropServices;
+using MelonLoader.Bootstrap.Deobfuscation;
 
 namespace MelonLoader.Bootstrap.RuntimeHandlers.Il2Cpp;
 
@@ -12,9 +13,9 @@ internal class Il2CppLib(Il2CppLib.MethodGetNameFn methodGetName)
 
     public static Il2CppLib? TryLoad(nint hRuntime)
     {
-        if (!NativeFunc.GetExport<InitFn>(hRuntime, "il2cpp_init", out var init)
-            || !NativeFunc.GetExport<RuntimeInvokeFn>(hRuntime, "il2cpp_runtime_invoke", out var runtimeInvoke)
-            || !NativeFunc.GetExport<MethodGetNameFn>(hRuntime, "il2cpp_method_get_name", out var methodGetName))
+        if (!NativeFunc.GetExport<InitFn>(hRuntime, Il2CppFunctionMapper.Map("il2cpp_init"), out var init)
+            || !NativeFunc.GetExport<RuntimeInvokeFn>(hRuntime, Il2CppFunctionMapper.Map("il2cpp_runtime_invoke"), out var runtimeInvoke)
+            || !NativeFunc.GetExport<MethodGetNameFn>(hRuntime, Il2CppFunctionMapper.Map("il2cpp_method_get_name"), out var methodGetName))
             return null;
 
         return new(methodGetName)

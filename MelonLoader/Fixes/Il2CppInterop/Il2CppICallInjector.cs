@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Il2CppInterop.HarmonySupport;
 using HarmonyLib;
+using MelonLoader.Deobfuscation;
 using Mono.Cecil;
 using MonoMod.Cil;
 using MethodAttributes = System.Reflection.MethodAttributes;
@@ -51,11 +52,11 @@ namespace MelonLoader.Fixes.Il2CppInterop
                 if (gameAssemblyLib == null)
                     throw new Exception($"Failed to load {gameAssemblyName} Native Library");
 
-                IntPtr il2cpp_resolve_icall = gameAssemblyLib.GetExport(nameof(il2cpp_resolve_icall));
+                IntPtr il2cpp_resolve_icall = gameAssemblyLib.GetExport(Il2CppFunctionMapper.Map(nameof(il2cpp_resolve_icall)));
                 if (il2cpp_resolve_icall == IntPtr.Zero)
                     throw new Exception($"Failed to get {nameof(il2cpp_resolve_icall)} Native Export");
 
-                il2cpp_add_internal_call = gameAssemblyLib.GetExport<dil2cpp_add_internal_call>(nameof(il2cpp_add_internal_call));
+                il2cpp_add_internal_call = gameAssemblyLib.GetExport<dil2cpp_add_internal_call>(Il2CppFunctionMapper.Map(nameof(il2cpp_add_internal_call)));
                 if (il2cpp_add_internal_call == null)
                     throw new Exception($"Failed to get {nameof(il2cpp_add_internal_call)} Native Export");
 

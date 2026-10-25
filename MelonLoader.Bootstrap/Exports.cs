@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using MelonLoader.Bootstrap.Deobfuscation;
 using MelonLoader.Logging;
 
 namespace MelonLoader.Bootstrap;
@@ -285,5 +286,10 @@ internal static class Exports
     public static unsafe void GetLoaderConfig(nint* pConfig)
     {
         Marshal.StructureToPtr(LoaderConfig.Current, *pConfig, false);
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "MapIl2CppFunction")]
+    public static unsafe nint MapIl2CppFunction(char* name, int nameLength) {
+        return Marshal.StringToHGlobalUni(Il2CppFunctionMapper.Map(new ReadOnlySpan<char>(name, nameLength).ToString()));
     }
 }

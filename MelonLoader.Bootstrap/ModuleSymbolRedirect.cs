@@ -2,6 +2,7 @@
 using MelonLoader.Bootstrap.RuntimeHandlers.Mono;
 using MelonLoader.Bootstrap.Utils;
 using System.Runtime.InteropServices;
+using MelonLoader.Bootstrap.Deobfuscation;
 
 namespace MelonLoader.Bootstrap
 {
@@ -68,7 +69,7 @@ namespace MelonLoader.Bootstrap
 
             //MelonDebug.Log($"Looking for Symbol {symbolName}");
             if (!MonoHandler.SymbolRedirects.TryGetValue(symbolName, out var redirect)
-                && !Il2CppHandler.SymbolRedirects.TryGetValue(symbolName, out redirect))
+                && !Il2CppHandler.SymbolRedirects.TryGetValue(Il2CppFunctionMapper.Unmap(symbolName), out redirect))
                 return originalSymbolAddress;
 
             if (!_runtimeInitialised)
